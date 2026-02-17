@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KodNest Premium Build System — Components</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .showcase { max-width: var(--max-w); margin: 0 auto; padding: var(--s64) var(--s40); }
+    .showcase-section { margin-bottom: var(--s64); }
+    .showcase-section h2 { font-family: var(--font-heading); font-size: var(--text-h-lg); margin-bottom: var(--s24); padding-bottom: var(--s16); border-bottom: 1px solid var(--color-border); }
+    .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s24); }
+    .spacing-demo { margin-bottom: var(--s8); padding: var(--s8); background: var(--color-fill); }
+    .spacing-demo:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="top-bar">
+      <div class="top-bar__project-name">Component Library</div>
+      <div class="top-bar__progress">Components / Reference</div>
+      <div class="top-bar__status top-bar__status--shipped">Shipped</div>
+    </header>
+
+    <section class="context-header">
+      <h1 class="context-header__headline">KodNest Premium Build System</h1>
+      <p class="context-header__subtext">Component reference. Four colors, serif headings, 8/16/24/40/64 spacing only.</p>
+    </section>
+
+    <div class="showcase">
+      <div class="showcase-section">
+        <h2>Buttons</h2>
+        <div class="showcase-grid">
+          <div class="card"><h4 class="card__title">Primary</h4><div class="card__body"><button class="btn btn--primary">Primary</button></div></div>
+          <div class="card"><h4 class="card__title">Secondary</h4><div class="card__body"><button class="btn btn--secondary">Secondary</button></div></div>
+          <div class="card"><h4 class="card__title">Disabled</h4><div class="card__body"><button class="btn btn--primary" disabled>Disabled</button></div></div>
+        </div>
+      </div>
+      <div class="showcase-section">
+        <h2>Inputs</h2>
+        <div class="showcase-grid">
+          <div class="card"><h4 class="card__title">Text</h4><div class="card__body"><input type="text" class="input" placeholder="Placeholder"></div></div>
+          <div class="card"><h4 class="card__title">Textarea</h4><div class="card__body"><textarea class="input" rows="3" placeholder="Placeholder"></textarea></div></div>
+        </div>
+      </div>
+      <div class="showcase-section">
+        <h2>Status</h2>
+        <div class="showcase-grid">
+          <div class="card"><h4 class="card__title">Badges</h4><div class="card__body" style="display: flex; flex-direction: column; gap: var(--s16);"><span class="badge badge--success">Success</span><span class="badge badge--warning">Warning</span><span class="badge badge--error">Error</span></div></div>
+          <div class="card"><h4 class="card__title">Top bar</h4><div class="card__body" style="display: flex; flex-direction: column; gap: var(--s16);"><span class="top-bar__status top-bar__status--not-started">Not Started</span><span class="top-bar__status top-bar__status--in-progress">In Progress</span><span class="top-bar__status top-bar__status--shipped">Shipped</span></div></div>
+        </div>
+      </div>
+      <div class="showcase-section">
+        <h2>Error state</h2>
+        <div class="card">
+          <div class="error-state">
+            <h4 class="error-state__title">Something went wrong</h4>
+            <p class="error-state__message">The request could not be completed. Check your connection and try again.</p>
+            <div class="error-state__action"><button class="btn btn--primary">Retry</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-section">
+        <h2>Empty state</h2>
+        <div class="card">
+          <div class="empty-state">
+            <h4 class="empty-state__title">No items yet</h4>
+            <p class="empty-state__message">Create your first item to get started.</p>
+            <div class="empty-state__action"><button class="btn btn--primary">Create Item</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-section">
+        <h2>Spacing scale (8 / 16 / 24 / 40 / 64)</h2>
+        <div class="card">
+          <div class="card__body">
+            <div class="spacing-demo" style="padding: var(--s8);">8px</div>
+            <div class="spacing-demo" style="padding: var(--s16);">16px</div>
+            <div class="spacing-demo" style="padding: var(--s24);">24px</div>
+            <div class="spacing-demo" style="padding: var(--s40);">40px</div>
+            <div class="spacing-demo" style="padding: var(--s64);">64px</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="proof-footer">
+      <div class="proof-footer__checklist">
+        <label class="proof-footer__item"><input type="checkbox" class="proof-footer__checkbox" checked> UI Built</label>
+        <label class="proof-footer__item"><input type="checkbox" class="proof-footer__checkbox" checked> Logic Working</label>
+        <label class="proof-footer__item"><input type="checkbox" class="proof-footer__checkbox" checked> Test Passed</label>
+        <label class="proof-footer__item"><input type="checkbox" class="proof-footer__checkbox" checked> Deployed</label>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
