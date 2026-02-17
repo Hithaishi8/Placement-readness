@@ -52,6 +52,30 @@ export default function Results() {
   const [notFound, setNotFound] = useState(false)
   const [copyFeedback, setCopyFeedback] = useState(null)
 
+  /* HOOKS MOVED TO TOP LEVEL */
+  const companyIntel = useMemo(() => {
+    if (!entry) return null
+    if (entry.companyIntel) return entry.companyIntel
+    if (!entry.company?.trim()) return null
+    try {
+      return generateCompanyIntel({
+        company: entry.company,
+        jdText: entry.jdText || '',
+        extractedSkills: entry.extractedSkills || {},
+      })
+    } catch {
+      return null
+    }
+  }, [entry])
+
+  useEffect(() => {
+    if (companyIntel && entry?.id && !entry.companyIntel) {
+      updateAnalysis(entry.id, { companyIntel })
+      setEntry((prev) => (prev ? { ...prev, companyIntel } : prev))
+    }
+  }, [companyIntel, entry?.id, entry?.companyIntel])
+
+
   useEffect(() => {
     try {
       const item = id ? getAnalysisById(id) : getLatestAnalysis()
@@ -156,26 +180,8 @@ export default function Results() {
     .filter((s) => skillConfidenceMap[s] !== 'know')
     .slice(0, 3)
 
-  const companyIntel = useMemo(() => {
-    if (entry.companyIntel) return entry.companyIntel
-    if (!entry.company?.trim()) return null
-    try {
-      return generateCompanyIntel({
-        company: entry.company,
-        jdText: entry.jdText || '',
-        extractedSkills: entry.extractedSkills || {},
-      })
-    } catch {
-      return null
-    }
-  }, [entry?.company, entry?.companyIntel, entry?.jdText, entry?.extractedSkills])
 
-  useEffect(() => {
-    if (companyIntel && !entry.companyIntel && entry.id) {
-      updateAnalysis(entry.id, { companyIntel })
-      setEntry((prev) => (prev ? { ...prev, companyIntel } : prev))
-    }
-  }, [companyIntel, entry?.companyIntel, entry?.id])
+
 
   return (
     <div className="space-y-6">
@@ -232,27 +238,27 @@ export default function Results() {
 
             {/* Round Mapping — vertical timeline */}
             {Array.isArray(companyIntel.roundMapping) && companyIntel.roundMapping.length > 0 && (
-            <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Expected Round Flow</p>
-              <div className="relative">
-                <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gray-200" aria-hidden="true" />
-                <ul className="space-y-4">
-                  {companyIntel.roundMapping.map((round, i) => (
-                    <li key={i} className="relative flex gap-4 pl-1">
-                      <span
-                        className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-white shadow-sm shrink-0"
-                        aria-hidden="true"
-                      />
-                      <div className="flex-1 pt-0.5">
-                        <p className="font-medium text-gray-900">{round?.name ?? ''}</p>
-                        <p className="text-sm text-primary font-medium">{round?.focus ?? ''}</p>
-                        <p className="text-xs text-gray-500 mt-1.5 italic">Why this round matters: {round?.whyMatters ?? ''}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+              <div>
+                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Expected Round Flow</p>
+                <div className="relative">
+                  <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gray-200" aria-hidden="true" />
+                  <ul className="space-y-4">
+                    {companyIntel.roundMapping.map((round, i) => (
+                      <li key={i} className="relative flex gap-4 pl-1">
+                        <span
+                          className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-white shadow-sm shrink-0"
+                          aria-hidden="true"
+                        />
+                        <div className="flex-1 pt-0.5">
+                          <p className="font-medium text-gray-900">{round?.name ?? ''}</p>
+                          <p className="text-sm text-primary font-medium">{round?.focus ?? ''}</p>
+                          <p className="text-xs text-gray-500 mt-1.5 italic">Why this round matters: {round?.whyMatters ?? ''}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
             )}
           </CardContent>
         </Card>
@@ -283,9 +289,8 @@ export default function Results() {
                         className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white overflow-hidden"
                       >
                         <span
-                          className={`px-2.5 py-1 text-sm font-medium ${
-                            isKnow ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-50 text-amber-800'
-                          }`}
+                          className={`px-2.5 py-1 text-sm font-medium ${isKnow ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-50 text-amber-800'
+                            }`}
                         >
                           {tag}
                         </span>
@@ -293,9 +298,8 @@ export default function Results() {
                           <button
                             type="button"
                             onClick={() => handleToggleSkill(tag, 'know')}
-                            className={`px-2 py-0.5 text-xs font-medium transition-colors ${
-                              isKnow ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-gray-100'
-                            }`}
+                            className={`px-2 py-0.5 text-xs font-medium transition-colors ${isKnow ? 'bg-emerald-600 text-white' : 'text-gray-600 hover:bg-gray-100'
+                              }`}
                             title="I know this"
                           >
                             I know
@@ -303,9 +307,8 @@ export default function Results() {
                           <button
                             type="button"
                             onClick={() => handleToggleSkill(tag, 'practice')}
-                            className={`px-2 py-0.5 text-xs font-medium transition-colors ${
-                              !isKnow ? 'bg-amber-500 text-white' : 'text-gray-600 hover:bg-gray-100'
-                            }`}
+                            className={`px-2 py-0.5 text-xs font-medium transition-colors ${!isKnow ? 'bg-amber-500 text-white' : 'text-gray-600 hover:bg-gray-100'
+                              }`}
                             title="Need practice"
                           >
                             Practice

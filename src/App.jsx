@@ -10,10 +10,21 @@ import Analyze from './pages/Analyze'
 import Results from './pages/Results'
 import History from './pages/History'
 
+import TestChecklist from './pages/TestChecklist'
+import ShipLock from './pages/ShipLock'
+import Proof from './pages/Proof'
+
 export default function App() {
+
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
+      <Route element={<DashboardLayout />}>
+        <Route path="/prp/07-test" element={<TestChecklist />} />
+        <Route path="/prp/08-ship" element={<ShipLock />} />
+        <Route path="/prp/proof" element={<Proof />} />
+      </Route>
+
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="practice" element={<Practice />} />
@@ -24,6 +35,8 @@ export default function App() {
         <Route path="results" element={<Results />} />
         <Route path="history" element={<History />} />
       </Route>
+
     </Routes>
   )
 }
+

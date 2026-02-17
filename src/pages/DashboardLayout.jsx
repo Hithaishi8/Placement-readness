@@ -9,7 +9,10 @@ import {
   FileSearch,
   FileText,
   History,
+  Lock,
+  ShieldCheck,
 } from 'lucide-react'
+
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -20,7 +23,11 @@ const navItems = [
   { to: '/dashboard/results', icon: FileText, label: 'Results' },
   { to: '/dashboard/history', icon: History, label: 'History' },
   { to: '/dashboard/profile', icon: User, label: 'Profile' },
+  { to: '/prp/07-test', icon: ClipboardCheck, label: 'Test Checklist' },
+  { to: '/prp/08-ship', icon: Lock, label: 'Ship Lock' },
+  { to: '/prp/proof', icon: ShieldCheck, label: 'Proof of Work' },
 ]
+
 
 export default function DashboardLayout() {
   const location = useLocation()
@@ -38,10 +45,9 @@ export default function DashboardLayout() {
               to={to}
               end={to === '/dashboard'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-primary text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
+                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
+                  ? 'bg-primary text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
                 }`
               }
             >
